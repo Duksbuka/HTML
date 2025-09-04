@@ -47,6 +47,7 @@
 
     <script>
         let slideIndex = 1;
+        let x = false;
         showSlides(slideIndex);
 
         function plusSlides(n) {
@@ -71,24 +72,20 @@
             }
             slides[slideIndex - 1].style.display = "block";
             dots[slideIndex - 1].className += " active";
+        }
 
-            function automaticSlides() {
-                let i;
-                let slides = document.getElementsByClassName("mySlides");
-                let dots = document.getElementsByClassName("dot");
-                for (i = 0; i < slides.length; i++) {
-                    slides[i].style.display = "none";
-                }
-                slideIndex++;
-                if (slideIndex > slides.length) { slideIndex = 1 }
-                for (i = 0; i < dots.length; i++) {
-                    dots[i].className = dots[i].className.replace(" active", "");
-                }
-                slides[slideIndex - 1].style.display = "block";
-                dots[slideIndex - 1].className += " active";
-                setTimeout(showSlides, 2000); // Change image every 2 seconds
+        function automaticSlides() {
+            if (!x) {
+                x = true;
+                slideshowInterval = setInterval(() => {
+                plusSlides(1);
+                }, 2000);
+            } else {
+                x = false;
+                clearInterval(slideshowInterval);
             }
         }
+        
     </script>
 </body>
 
